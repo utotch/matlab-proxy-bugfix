@@ -546,7 +546,7 @@ async def matlab_view(req):
         await ws_server.prepare(req)
 
         async with aiohttp.ClientSession(
-            cookies=req.cookies, connector=aiohttp.TCPConnector(verify_ssl=False)
+            trust_env=True, cookies=req.cookies, connector=aiohttp.TCPConnector(verify_ssl=False)
         ) as client_session:
             try:
                 async with client_session.ws_connect(
@@ -610,7 +610,7 @@ async def matlab_view(req):
     else:
         # Proxy, injecting request header
         async with aiohttp.ClientSession(
-            connector=aiohttp.TCPConnector(verify_ssl=False),
+            trust_env=True, connector=aiohttp.TCPConnector(verify_ssl=False),
         ) as client_session:
             try:
                 req_body = await transform_body(req)

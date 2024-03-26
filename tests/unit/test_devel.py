@@ -162,7 +162,7 @@ async def test_matlab_valid_nlm(matlab_ready_file, matlab_process_valid_nlm):
     while True:
         try:
             url = f"http://localhost:{matlab_port}/index-jsd-cr.html"
-            async with aiohttp.ClientSession() as session:
+            async with aiohttp.ClientSession(trust_env=True) as session:
                 async with session.get(url) as resp:
                     assert resp.content_type == "text/html"
                     assert resp.status == 200
@@ -219,7 +219,7 @@ async def test_matlab_invalid_nlm(matlab_ready_file, matlab_process_invalid_nlm)
             try:
                 url = f"http://localhost:{matlab_port}/index-jsd-cr.html"
 
-                async with aiohttp.ClientSession() as session:
+                async with aiohttp.ClientSession(trust_env=True) as session:
                     async with session.get(url) as resp:
                         assert resp.content_type == "text/html"
                         assert resp.status == 200
